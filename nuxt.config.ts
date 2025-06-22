@@ -9,5 +9,5 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
-  modules: ["@nuxt/image"],
+  modules: ["@nuxt/image", "@prisma/nuxt"],
 });

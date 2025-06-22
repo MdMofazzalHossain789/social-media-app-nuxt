@@ -1,3 +1,5 @@
+import prisma from "~/lib/prisma";
+
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
@@ -12,7 +14,27 @@ export default defineEventHandler(async (event) => {
       })
     );
   }
+
+  if (password !== confirmPassword) {
+    return sendError(
+      event,
+      createError({
+        statusCode: 400,
+        statusMessage: "Passwords do not match",
+      })
+    );
+  }
+
+  const userData = {
+    username,
+    email,
+    name,
+    password,
+  };
+
+  const user = await prisma.user.create({ data: userData });
+
   return {
-    body,
+    user,
   };
 });
