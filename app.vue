@@ -8,13 +8,11 @@
         <SidebarLeft />
       </div>
       <!-- Main Section -->
-      <div class="hidden col-span-12 md:col-span-8 xl:col-span-6 bg-green-500">
-        Main Content
+      <div class="col-span-12 md:col-span-8 xl:col-span-6">
+        <NuxtPage />
       </div>
       <!-- Right sidebar -->
-      <div
-        class="col-span-12 md:block md:col-span-3 xl:col-span-4 w-full bg-purple-500"
-      >
+      <div class="hidden md:block md:col-span-3 xl:col-span-4 w-ful">
         <SidebarRight />
       </div>
     </div>

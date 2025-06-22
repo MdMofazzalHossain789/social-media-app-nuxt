@@ -13,7 +13,7 @@ const { defaultTransition } = useTailwind();
 </script>
 
 <template>
-  <div class="h-screen flex justify-center border-1">
+  <div class="h-screen flex justify-center">
     <div class="h-full flex flex-col py-4 gap-y-2">
       <div
         class="w-14 h-14 hover:bg-blue-500/30 rounded-full p-2 cursor-pointer"
