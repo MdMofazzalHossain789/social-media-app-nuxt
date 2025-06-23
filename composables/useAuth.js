@@ -1,9 +1,11 @@
-import useFetch from "./useFetch";
+import { jwtDecode } from "jwt-decode";
+import useFetchApi from "./useFetchApi";
 
 export default () => {
   // States
   const useAuthToken = () => useState("auth_token");
   const useAuthUser = () => useState("auth_user");
+  const useAuthLoading = () => useState("auth_loading", () => true);
 
   // Helper functions
   const setToken = (newToken) => {
@@ -16,6 +18,12 @@ export default () => {
     const authUser = useAuthUser();
 
     authUser.value = newUser;
+  };
+
+  const setIsAuthLoading = (value) => {
+    const authLoading = useAuthLoading();
+
+    authLoading.value = value;
   };
 
   // functions
@@ -58,7 +66,9 @@ export default () => {
   const getUser = () => {
     return new Promise(async (resolve, reject) => {
       try {
-        const data = await useFetch(`/api/auth/user`);
+        const data = await useFetchApi(`/api/auth/user`);
+
+        console.log("get user", data);
 
         setUser(data.user);
         resolve(true);
@@ -70,18 +80,40 @@ export default () => {
     });
   };
 
+  const reRefreshAccessToken = () => {
+    const authToken = useAuthToken();
+
+    if (!authToken.value) {
+      return;
+    }
+
+    const jwt = jwtDecode(authToken.value);
+
+    const newRefreshTime = jwt.exp - 60000;
+
+    setTimeout(async () => {
+      await refreshToken();
+      reRefreshAccessToken();
+    }, newRefreshTime);
+  };
+
   const initAuth = () => {
     return new Promise(async (resolve, reject) => {
+      setIsAuthLoading(true);
       try {
         await refreshToken();
 
         await getUser();
+
+        reRefreshAccessToken();
 
         resolve(true);
       } catch (error) {
         console.log(error);
 
         reject(error);
+      } finally {
+        setIsAuthLoading(false);
       }
     });
   };
@@ -91,5 +123,6 @@ export default () => {
     useAuthUser,
     useAuthToken,
     initAuth,
+    useAuthLoading,
   };
 };
