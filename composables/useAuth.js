@@ -1,3 +1,5 @@
+import useFetch from "./useFetch";
+
 export default () => {
   // States
   const useAuthToken = () => useState("auth_token");
@@ -39,9 +41,55 @@ export default () => {
     });
   };
 
+  const refreshToken = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = await $fetch(`/api/auth/refresh`);
+
+        setToken(data.access_token);
+        resolve(true);
+      } catch (error) {
+        console.log(error);
+
+        reject(error);
+      }
+    });
+  };
+  const getUser = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = await useFetch(`/api/auth/user`);
+
+        setUser(data.user);
+        resolve(true);
+      } catch (error) {
+        console.log(error);
+
+        reject(error);
+      }
+    });
+  };
+
+  const initAuth = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await refreshToken();
+
+        await getUser();
+
+        resolve(true);
+      } catch (error) {
+        console.log(error);
+
+        reject(error);
+      }
+    });
+  };
+
   return {
     login,
     useAuthUser,
     useAuthToken,
+    initAuth,
   };
 };

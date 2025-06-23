@@ -1,8 +1,14 @@
 <script setup>
-const { useAuthUser } = useAuth();
+import { onBeforeMount } from "vue";
+
+const { useAuthUser, initAuth } = useAuth();
 
 const loading = false;
 const user = useAuthUser();
+
+onBeforeMount(() => {
+  initAuth();
+});
 </script>
 
 <template>
