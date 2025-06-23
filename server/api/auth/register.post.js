@@ -1,4 +1,5 @@
-import prisma from "~/lib/prisma";
+import { createUser } from "~/server/db/user";
+import { userTransformer } from "~/server/transformers/user";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
@@ -32,9 +33,9 @@ export default defineEventHandler(async (event) => {
     password,
   };
 
-  const user = await prisma.user.create({ data: userData });
+  const user = await createUser(userData);
 
   return {
-    user,
+    user: userTransformer(user),
   };
 });
