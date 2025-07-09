@@ -24,21 +24,22 @@ const user = useAuthUser();
 </script>
 
 <template>
-  <div class="w-full h-full">
-    <MainSection title="Home" :loading="false">
-      <Header>
-        <Title>Home / Twitter</Title>
-      </Header>
+  <div class="flex-1 flex flex-col">
+    <div>Home</div>
+    <Header>
+      <Title>Home / Twitter</Title>
+    </Header>
+    <div class="h-fit w-full">
       <TweetForm />
+    </div>
 
-      <div class="max-h-full w-full overflow-y-auto bg-red-500">
-        <div v-if="isFetchingPost">Loading...</div>
-        <div v-else class="w-full h-full">
-          <div v-for="tweet in tweets" :key="tweet.id" class="">
-            <p>{{ tweet.text }}</p>
-          </div>
+    <div class="flex-1 flex flex-col w-full overflow-y-auto bg-red-500">
+      <div v-if="isFetchingPost">Loading...</div>
+      <div v-else class="w-full h-full">
+        <div v-for="tweet in tweets" :key="tweet.id" class="">
+          <p>{{ tweet.text }}</p>
         </div>
       </div>
-    </MainSection>
+    </div>
   </div>
 </template>

@@ -12,6 +12,7 @@ const handleSubmit = async () => {
   submitting.value = true;
   try {
     const res = await createTweet({ text: text.value });
+    text.value = "";
 
     console.log(res);
   } catch (error) {

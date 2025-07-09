@@ -22,7 +22,7 @@ const props = defineProps({
       <h1 class="text-xl font-bold py-4">{{ title }}</h1>
     </div>
     <div v-if="loading">Loading...</div>
-    <div v-else class="w-full h-full">
+    <div v-else class="flex flex-col flex-1">
       <slot></slot>
     </div>
   </div>

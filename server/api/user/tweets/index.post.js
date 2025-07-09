@@ -20,8 +20,10 @@ export default defineEventHandler(async (event) => {
 
   const userId = event.context?.auth?.user?.id;
 
+  console.log(fields);
+
   const tweetData = {
-    text: fields.text,
+    text: fields.text[0],
     authorId: userId,
   };
 
