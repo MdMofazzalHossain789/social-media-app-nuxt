@@ -49,5 +49,7 @@ export const sendRefreshToken = (event, token) => {
   setCookie(event, "refresh_token", token, {
     httpOnly: true,
     sameSite: true,
+    sameSite: "Strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 };

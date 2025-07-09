@@ -5,3 +5,7 @@ export const createTweet = async (data) => {
     data,
   });
 };
+
+export const getTweets = async (params = {}) => {
+  return prisma.tweet.findMany(params);
+};

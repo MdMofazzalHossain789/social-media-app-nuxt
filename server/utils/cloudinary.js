@@ -14,12 +14,16 @@ const cloudinary = () => {
 
 export const uploadToCloudinary = async (image) => {
   return new Promise((resolve, reject) => {
-    cloudinary().uploader.upload(image, (error, data) => {
-      if (error) {
-        reject(error);
-      }
+    cloudinary().uploader.upload(
+      image,
+      { folder: "social-media-app-nuxt-images" },
+      (error, data) => {
+        if (error) {
+          reject(error);
+        }
 
-      resolve(data);
-    });
+        resolve(data);
+      }
+    );
   });
 };
