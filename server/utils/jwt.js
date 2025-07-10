@@ -11,7 +11,7 @@ const generateRefreshToken = (user) => {
   const config = useRuntimeConfig();
 
   return jwt.sign({ userId: user.id }, config.jwtRefreshSecret, {
-    expiresIn: "14m",
+    expiresIn: "7d",
   });
 };
 
@@ -48,8 +48,8 @@ export const generateTokens = (user) => {
 export const sendRefreshToken = (event, token) => {
   setCookie(event, "refresh_token", token, {
     httpOnly: true,
-    sameSite: true,
     sameSite: "Strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
+    path: "/",
+    maxAge: 7 * 24 * 60 * 60,
   });
 };

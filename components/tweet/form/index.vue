@@ -1,4 +1,5 @@
 <script setup>
+const { border } = useTailwind();
 const { createTweet } = useTweet();
 
 const submitting = ref(false);
@@ -14,6 +15,7 @@ const handleSubmit = async () => {
     const res = await createTweet({ text: text.value });
     text.value = "";
 
+    await refresh();
     console.log(res);
   } catch (error) {
     console.log(error);
@@ -23,7 +25,7 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div>
+  <div class="py-4 border-b" :class="border">
     <div class="flex p-4">
       <div>
         <div class="w-12 h-12 bg-gray-500 rounded-full"></div>
@@ -34,7 +36,7 @@ const handleSubmit = async () => {
         placeholder="What's on your mind?"
       ></textarea>
     </div>
-    <div>
+    <div class="flex justify-end px-4">
       <button
         class="px-4 py-2 rounded-full font-semibold w-fit cursor-pointer bg-blue-500 disabled:bg-gray-500 disabled:cursor-not-allowed"
         @click="handleSubmit"

@@ -3,3 +3,25 @@
 body {
   @apply bg-white dark:bg-zinc-900 h-screen w-screen;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 999px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(241, 241, 241, 0.1);
+  border-radius: 999px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 999px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

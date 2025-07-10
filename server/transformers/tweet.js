@@ -1,5 +1,6 @@
 import { mediaFileTransformer } from "./mediaFile";
 import { userTransformer } from "./user";
+import human from "human-time";
 
 export const tweetTransformer = (tweet) => {
   const { id, text, authorId, replyToId } = tweet;
@@ -15,5 +16,7 @@ export const tweetTransformer = (tweet) => {
       ? tweet.mediaFiles.map(mediaFileTransformer)
       : [],
     replies: tweet.replies ? tweet.replies.map(tweetTransformer) : [],
+    repliesCount: tweet.replies ? tweet.replies.length : 0,
+    createdAt: human(tweet.createdAt),
   };
 };

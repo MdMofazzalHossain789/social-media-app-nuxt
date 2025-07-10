@@ -30,6 +30,9 @@ export default defineEventHandler(async (event) => {
   }
 
   const token = decodeRefreshToken(refreshToken);
+
+  console.log(token);
+
   try {
     const user = await getUserById(token.userId);
 

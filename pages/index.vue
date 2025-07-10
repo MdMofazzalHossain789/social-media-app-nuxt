@@ -1,6 +1,7 @@
 <script setup>
 const { useAuthUser } = useAuth();
 const { getTweets } = useTweet();
+const { border } = useTailwind();
 
 const isFetchingPost = ref(true);
 
@@ -24,8 +25,8 @@ const user = useAuthUser();
 </script>
 
 <template>
-  <div class="flex-1 flex flex-col">
-    <div>Home</div>
+  <div class="flex-1 flex flex-col border-x" :class="border">
+    <PageTitle title="Home / Twitter" />
     <Header>
       <Title>Home / Twitter</Title>
     </Header>
@@ -33,12 +34,15 @@ const user = useAuthUser();
       <TweetForm />
     </div>
 
-    <div class="flex-1 flex flex-col w-full overflow-y-auto bg-red-500">
-      <div v-if="isFetchingPost">Loading...</div>
+    <div class="flex-1 flex flex-col w-full overflow-y-auto">
+      <div v-if="isFetchingPost">
+        <TweetSkeleton />
+        <TweetSkeleton />
+        <TweetSkeleton />
+        <TweetSkeleton />
+      </div>
       <div v-else class="w-full h-full">
-        <div v-for="tweet in tweets" :key="tweet.id" class="">
-          <p>{{ tweet.text }}</p>
-        </div>
+        <TweetList :tweets="tweets" />
       </div>
     </div>
   </div>
